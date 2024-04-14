@@ -21,16 +21,15 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
 
   if (error) return <p>{error.message}</p>;
 
-  if (isLoading) return <p>Loading ..</p>
+  if (isLoading) return <p>Loading ..</p>;
 
   return (
     <>
       <Heading fontSize="2xl" marginTop={9} marginBottom={3}>
-        Genres
+        <Text>Genres</Text>
       </Heading>
-
       <List>
-        {data?.results.map(genre => (
+        {data?.results.map((genre) => (
           <ListItem key={genre.id} paddingY="5px">
             <HStack>
               <Image
