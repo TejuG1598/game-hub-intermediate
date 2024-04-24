@@ -3,21 +3,10 @@ import useGameQueryStore from "../gameQueryStore";
 
 import { FetchResponse } from "../services/api-client";
 import gameService from "../services/gameService";
-import { Platform } from "./usePlatforms";
-
-export interface Game {
-  id: number;
-  slug: string;
-  name: string;
-  description_raw: string;
-  background_image: string;
-  parent_platforms: { platform: Platform }[];
-  metacritic: number;
-  rating_top: number;
-}
+import { Game } from "../entities/Game";
 
 const useGames = () => {
-  const gameQuery = useGameQueryStore(s => s.gameQuery)
+  const gameQuery = useGameQueryStore((s) => s.gameQuery);
   const fetchGames = (pageParam: number) => {
     return gameService.getAll({
       params: {
@@ -30,13 +19,13 @@ const useGames = () => {
     });
   };
 
-  return useInfiniteQuery<FetchResponse<Game>,Error>({
-      queryKey: ["games", gameQuery],
-      getNextPageParam: (lastPage, allPages) => {
-        return lastPage.results.length > 0 ? allPages.length + 1 : undefined;
-      },
-      queryFn: ({ pageParam }) => fetchGames(pageParam),
-    });
+  return useInfiniteQuery<FetchResponse<Game>, Error>({
+    queryKey: ["games", gameQuery],
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.results.length > 0 ? allPages.length + 1 : undefined;
+    },
+    queryFn: ({ pageParam }) => fetchGames(pageParam),
+  });
 };
 
 export default useGames;

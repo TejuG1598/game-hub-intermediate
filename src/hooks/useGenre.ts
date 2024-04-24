@@ -1,9 +1,10 @@
-import React from 'react'
-import useGenres, { Genre } from './useGenres'
+import React from "react";
+import useGenres from "./useGenres";
+import { Genre } from "../entities/Genre";
 
 const useGenre = (id: number) => {
-  const {data} = useGenres();
-  return data?.results.find(genre => genre.id === id)
-}
+  const { data } = useGenres();
+  return data?.results.find((genre) => genre.id === id);
+};
 
-export default useGenre
+export default useGenre;
